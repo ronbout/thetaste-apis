@@ -1,7 +1,7 @@
 <?php
 
 /*
-    Plugin Name: Taste APIs Plugin
+    Plugin Name: TheTaste APIs Plugin
     Plugin URI: http://thetaste.ie
     Description: Generate custom api's for the TheTaste.ie 
 		Version: 1.0.0
