@@ -44,8 +44,8 @@ function tapi_get_venue_api_info($request) {
 	$venue_id = $parameters['venue-id'];
 	$venue_data = tapi_get_venue_data($venue_id)[0];
 
-	print_r($venue_data);
-	die;
+	// print_r($venue_data);
+	// die;
 
 	return new WP_REST_Response($venue_data, 200);
 }
