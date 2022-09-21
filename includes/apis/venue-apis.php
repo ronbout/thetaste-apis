@@ -60,7 +60,7 @@ function tapi_get_venue_data($venue_id) {
 		JOIN $wpdb->users u on u.ID = ven.venue_id
 		LEFT JOIN {$wpdb->prefix}taste_venue_creditor vcred ON vcred.creditor_id = ven.creditor_id
 		LEFT JOIN {$wpdb->prefix}taste_venues_posts venposts on venposts.venue_id = ven.venue_id
-		JOIN $wpdb->posts relp ON relp.ID = venposts.post_id AND relp.post_status = 'publish'
+		LEFT JOIN $wpdb->posts relp ON relp.ID = venposts.post_id AND relp.post_status = 'publish'
 		WHERE ven.venue_id = %d 
 		GROUP BY ven.venue_id
 	";
@@ -72,10 +72,13 @@ function tapi_get_venue_data($venue_id) {
 	$venue_row_with_financials = tapi_get_venue_financials($venue_row);
 
 	$venue_return_rows = array_map(function($venue_data) {
-		$related_posts = explode(',',$venue_data['related_posts']);
+		if ($venue_data['related_posts']) {		
+			$related_posts = explode(',',$venue_data['related_posts']);
 
-		$related_posts_info = get_related_posts_info($related_posts);
-		$venue_data['related_posts'] = $related_posts_info;
+			$related_posts_info = get_related_posts_info($related_posts);
+			$venue_data['related_posts'] = $related_posts_info;
+		}
+
 		return $venue_data;
 	
 	}, $venue_row_with_financials);
