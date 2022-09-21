@@ -44,8 +44,8 @@ function tapi_get_venue_api_info($request) {
 	$venue_id = $parameters['venue-id'];
 	$venue_data = tapi_get_venue_data($venue_id)[0];
 
-	// print_r($venue_data);
-	// die;
+	print_r($venue_data);
+	die;
 
 	return new WP_REST_Response($venue_data, 200);
 }
@@ -287,7 +287,7 @@ function get_related_posts_info($related_posts) {
 			'post_title' => $post->post_title,
 			'post_date' => $post->post_date,
 			'post_author' => get_the_author_meta('display_name', $post->post_author),
-			'post_excerpt' => substr($post->post_content, 0, 140),
+			'post_excerpt' => substr(wp_strip_all_tags($post->post_content), 0, 140),
 			'post_thumbnail' => get_the_post_thumbnail($post_id, array( 200, 200),  array('class'=>"card-img-top")),
 			'post_link' => get_permalink($post_id ),
 		);
